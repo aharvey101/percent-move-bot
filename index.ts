@@ -44,7 +44,8 @@ async function loop() {
     if (nextPairs.length > 0) {
       bot.sendMessage(chatId, nextPairs.map((pair: any) => pair.id).join('\n'))
     }
-  }, 1000 * 60 * 5)
+    // }, 1000 * 60 * 5)
+  }, 1000)
 }
 
 loop()
