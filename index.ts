@@ -48,5 +48,3 @@ async function loop() {
 }
 
 loop()
-
-module.exports = bot
