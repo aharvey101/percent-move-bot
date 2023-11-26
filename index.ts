@@ -18,10 +18,10 @@ async function loop() {
     ).filter(
       (ticker: any) =>
         ticker.symbol.includes('/USDT') &&
-        ticker.quoteVolume > 100_000 &&
+        ticker.quoteVolume > 100_000_000 &&
         ticker.percentage.toFixed(4) > 5
     )
-    console.log(binanceTickers)
+
     const bitgetPairs = Object.values(
       (await Bitget.fetchMarkets()) as any
     ).filter(
@@ -35,7 +35,7 @@ async function loop() {
         return bitgetCoin === binanceCoin
       })
     })
-    // TODO: check if there are new pairs that were not in the previous loop
+
     const nextPairs = matchingPairs.filter(
       (pair: any) => !pairs.some((p: any) => p.id === pair.id)
     )
@@ -44,8 +44,7 @@ async function loop() {
     if (nextPairs.length > 0) {
       bot.sendMessage(chatId, nextPairs.map((pair: any) => pair.id).join('\n'))
     }
-  }, 5000)
-  // }, 1000 * 60)
+  }, 1000 * 60 * 5)
 }
 
 loop()
