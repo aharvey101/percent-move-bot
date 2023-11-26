@@ -1,2 +1,1 @@
-web: echo "hello world"
-other: npm run start
+worker: npm run start
