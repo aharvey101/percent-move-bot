@@ -11,7 +11,6 @@ const Binance = new binance()
 const Bitget = new bitget()
 
 async function loop() {
-  let pairs: Market[] = []
   setInterval(async () => {
     const binanceTickers = Object.values(
       (await Binance.fetchTickers()) as any
@@ -35,18 +34,11 @@ async function loop() {
         return bitgetCoin === binanceCoin
       })
     })
-
-    const nextPairs = matchingPairs.filter(
-      (pair: any) => !pairs.some((p: any) => p.id === pair.id)
+    bot.sendMessage(
+      chatId,
+      matchingPairs.map((pair: any) => pair.id).join('\n')
     )
-    pairs.push(...nextPairs.sort((a: any, b: any) => a.id.localeCompare(b.id)))
-
-    console.log(pairs)
-
-    if (nextPairs.length > 0) {
-      bot.sendMessage(chatId, nextPairs.map((pair: any) => pair.id).join('\n'))
-    }
-  }, 1000 * 60 * 5)
+  }, 1000 * 60 * 10)
 }
 
 loop()
