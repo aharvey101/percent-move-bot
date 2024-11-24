@@ -43,7 +43,7 @@ async function loop() {
             return prevPair.id === pair.id;
           }),
       );
-
+      if (difference.length < 1) return;
       reportPairs = [];
       reportPairs = matchingPairs;
 
@@ -52,7 +52,8 @@ async function loop() {
         difference.map((pair: any) => pair.id).join("\n"),
       );
     },
-    1000 * 60 * 10,
+    // 1000 * 60 * ,
+    1000,
   );
 }
 
