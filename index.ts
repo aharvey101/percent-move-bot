@@ -12,6 +12,7 @@ const Bitget = new bitget();
 
 let reportPairs: Market[] = [];
 async function loop() {
+	let loopAmount = 0;
   setInterval(
     async () => {
       const binanceTickers = Object.values(
@@ -44,17 +45,21 @@ async function loop() {
           }),
       );
       if (difference.length < 1) return;
-      reportPairs = [];
+
       reportPairs = matchingPairs;
 
       bot.sendMessage(
         chatId,
         difference.map((pair: any) => pair.id).join("\n"),
       );
+			loopAmount++
     },
-    // 1000 * 60 * ,
     1000,
   );
+if (loopAmount > 3600) {
+	reportPairs = [];
+	loopAmount = 0;
+}
 }
 
 loop();
