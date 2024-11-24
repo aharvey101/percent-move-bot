@@ -37,7 +37,11 @@ async function loop() {
       });
 
       let difference = matchingPairs.filter(
-        (pair) => !reportPairs.some((prevPair) => prevPair.id === pair.id),
+        (pair) =>
+          !reportPairs.some((prevPair) => {
+            if (!pair || !prevPair) return;
+            return prevPair.id === pair.id;
+          }),
       );
 
       reportPairs = [];
